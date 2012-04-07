@@ -1,10 +1,12 @@
 PREFIX=$(DESTDIR)/usr
-CFLAGS+=-fPIC -W -Wall -Werror
+#CFLAGS+=-fPIC -W -Wall -Werror
+CFLAGS+=-fPIC -W -Wall 
 
 build:
 	gcc $(CFLAGS) -O3 -c md5.c
 	gcc $(CFLAGS) -O3 -c ketama.c
-	gcc -shared -Wl,-soname,libketama.so.1 -lm -o libketama.so.1 ketama.o md5.o
+	#gcc -shared -Wl,-soname,libketama.so.1 -lm -o libketama.so.1 ketama.o md5.o
+	gcc -shared -Wl,--no-as-needed -Wl,-soname,libketama.so.1 -lm -o libketama.so.1 ketama.o md5.o
 
 debug:
 	gcc $(CFLAGS) -g -DDEBUG -o md5-debug.o -c md5.c
